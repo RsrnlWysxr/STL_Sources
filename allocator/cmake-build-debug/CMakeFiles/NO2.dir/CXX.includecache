@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/liyihang/Documents/Clion/STLSources/NO2/JJ.h
+iostream
+-
+new
+-
+cstddef
+-
+cstdlib
+-
+climits
+-
+
+/Users/liyihang/Documents/Clion/STLSources/NO2/main.cpp
+iostream
+-
+vector
+-
+JJ.h
+/Users/liyihang/Documents/Clion/STLSources/NO2/JJ.h
+

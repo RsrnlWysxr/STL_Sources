@@ -37,15 +37,12 @@
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.c" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/CXX.includecache" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/DependInfo.cmake" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/build.make" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/cmake_clean.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/depend.internal" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/depend.make" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/flags.make" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/link.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/main.cpp.o" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/sequence_containers.dir/progress.make" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterDir="false" />
@@ -116,6 +113,28 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1163375467">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="h" value="5797" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="ObjectiveC" value="5797" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+      <usages-collector id="statistics.cidr.testingFrameworks.usages" />
+      <usages-collector id="statistics.file.types.open" />
+      <usages-collector id="statistics.file.extensions.open" />
+    </session>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="sequence_containers">
@@ -128,8 +147,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="192">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -137,10 +156,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LYH.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+            <state relative-caret-position="51">
+              <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
               <folding>
                 <element signature="e#82#140#0" expanded="true" />
+                <element signature="e#521#530#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,10 +169,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sequence_containers.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+            <state relative-caret-position="508">
+              <caret line="502" column="9" lean-forward="true" selection-start-line="502" selection-start-column="9" selection-end-line="502" selection-end-column="9" />
               <folding>
                 <element signature="e#140#159#0" expanded="true" />
+                <element signature="e#6912#6921#0" expanded="true" />
+                <element signature="e#7108#7139#0" expanded="true" />
+                <element signature="e#6900#6930#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -173,8 +196,8 @@
       <list>
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/JJ.h" />
-        <option value="$PROJECT_DIR$/sequence_containers.h" />
         <option value="$PROJECT_DIR$/LYH.h" />
+        <option value="$PROJECT_DIR$/sequence_containers.h" />
       </list>
     </option>
   </component>
@@ -203,10 +226,6 @@
             <path>
               <item name="sequence_containers" type="b2602c69:ProjectViewProjectNode" />
               <item name="sequence_containers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sequence_containers" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -250,6 +269,9 @@
       <item itemvalue="Application.sequence_containers" />
     </list>
   </component>
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_MODE" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -264,11 +286,12 @@
       <workItem from="1538711300204" duration="752000" />
       <workItem from="1538811824362" duration="6960000" />
       <workItem from="1539070626130" duration="390000" />
+      <workItem from="1539072306302" duration="12394000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18950000" />
+    <option name="totallyTimeSpent" value="31344000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -284,8 +307,8 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5328084" side_tool="true" weight="0.26967096" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.43700787" visible="true" weight="0.21101573" />
-      <window_info id="Structure" order="2" sideWeight="0.56299216" side_tool="true" weight="0.2081545" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4361834" visible="true" weight="0.21387696" />
+      <window_info id="Structure" order="2" sideWeight="0.5638166" side_tool="true" visible="true" weight="0.21387696" />
       <window_info anchor="bottom" id="Version Control" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="1" weight="0.32939634" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
@@ -341,9 +364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file:///Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1/vector">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -351,29 +371,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="23" lean-forward="true" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="192">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LYH.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+        <state relative-caret-position="51">
+          <caret line="30" column="16" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
           <folding>
             <element signature="e#82#140#0" expanded="true" />
+            <element signature="e#521#530#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sequence_containers.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+        <state relative-caret-position="508">
+          <caret line="502" column="9" lean-forward="true" selection-start-line="502" selection-start-column="9" selection-end-line="502" selection-end-column="9" />
           <folding>
             <element signature="e#140#159#0" expanded="true" />
+            <element signature="e#6912#6921#0" expanded="true" />
+            <element signature="e#7108#7139#0" expanded="true" />
+            <element signature="e#6900#6930#0" expanded="true" />
           </folding>
         </state>
       </provider>

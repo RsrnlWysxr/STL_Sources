@@ -148,7 +148,7 @@ public:
         destroy(finish);
         return position;
     }
-    // 清楚[first,last)中的所有元素
+    // 清除[first,last)中的所有元素
     iterator erase( iterator first, iterator last )
     {
         iterator i = std::copy( last, finish, first );
@@ -502,8 +502,262 @@ public:
                 transfer( last1, first2, last2 );
         }
     }
+    // reverse()将*this的内容逆向重置
+    void reverse()
+    {
+        // size == 0 || size == 1 不用翻转
+        if( node->next == node || link_type(node->next)->next == node )
+            return;
+        iterator first = begin();
+        while( first != end() )
+        {
+            iterator old = first;
+            ++first;
+            transfer( begin(), old, first );
+        }
+    }
+    // STL算法只接受RamadanAccessIterator
+    // 所以list需要自己的sort()
+    // 快排思路
+    void sort()
+    {
+        // size == 0 || size == 1 不用排序
+        if( node->next == node || link_type(node->next)->next == node )
+            return;
+        // 申请一些新的空间,作为中介数据存放
+        list<T,Alloc> carry;
+        list<T,Alloc> counter[64];
+        int fill = 0;
+        while( !empty() )
+        {
+            carry.splice( carry.begin(), *this, begin() );
+            int i = 0;
+            while( i < fill && !counter[i].empty() )
+            {
+                counter[i].merge( carry );
+                carry.swap( counter[i++] );
+            }
+            carry.swap( counter[i] );
+            if( i == fill ) fill++;
+        }
+        for( int i = 1; i < fill; ++i )
+            counter[i].merge( counter[i-1] );
+        std::swap( counter[fill - 1] );
+    }
 };
 
+// 设置缓冲区的大小
+// 传入BufSiz(元素个数),元素大小,传回元素个数
+// 处理默认情况BufSiz为0的情况
+// 如果n不为0,传回n,表示buffer size 是用户自定义的
+// 如果n为0,表示buffer size使用默认值,那么
+// 如果sz(元素大小)小于512/sz
+// 如果sz不小于512,传回1
+inline size_t __deque_buf_size( size_t n, size_t sz )
+{
+    return n != 0 ? n : ( sz < 512 ? size_t( 512/sz ) : size_t(1) );
+}
+
+// deque需要知道缓冲区的大小
+template <class T, class Ref, class Ptr, size_t BufSiz>
+struct __deque_iterator // 未继承std::iterator
+{
+    typedef __deque_iterator<T, T&, T*, BufSiz> iterator;
+    typedef __deque_iterator<T, T&, const T*, BufSiz> const_iterator;
+    static size_t buffer_size() { return __deque_buf_size(BufSiz, sizeof(T)); }
+
+    typedef std::random_access_iterator_tag iterator_category;
+    typedef T value_type;
+    typedef Ptr pointer;
+    typedef Ref reference;
+    typedef size_t size_type;
+    typedef ptrdiff_t difference_type;
+    // 与容器联系
+    typedef T** map_pointer;
+
+    typedef __deque_iterator self;
+
+    // 成员(与容器联接)
+    T* cur;         // 此迭代器所指之缓冲区中的现行元素
+    T* first;       // 此迭代器所指之缓冲区的头
+    T* last;        // 此迭代器所指之缓冲区的尾(含备用空间)
+    map_pointer node;   // 指向管控中心(中控器)
+                        // 可以理解为deque的map的下标
+
+    // 行为
+    // 跳转至下一个缓冲区
+    void set_node( map_pointer new_node)
+    {
+        node = new_node;
+        first = *new_node;
+        last = first + difference_type( buffer_size() );
+    }
+    // 重载运算符
+    reference operator*() const { return *cur; }
+    pointer operator->() const { return &(operator*()); }
+
+    difference_type operator-( const self& x ) const
+    {
+        // 计算思路:
+        // 如 1--2--3--4--5
+        // this在1,x在5
+        // 2.3.4是完整的,乘以缓冲区大小
+        // 再分别计算1中与5中的位置差距
+        return difference_type(buffer_size()) * ( node - x.node - 1 ) + ( cur - first ) + ( x.last - x.cur );
+    }
+    // 前置加加
+    self& operator++()
+    {
+        ++cur;
+        if( cur == last )
+        {
+            set_node( node+1 );
+            cur = first;
+        }
+        return *this;
+    }
+    // 后置加加
+    self operator++(int)
+    {
+        self tmp = cur;
+        ++*this;
+        return tmp;
+    }
+    // 前置--
+    self& operator--()
+    {
+        if( cur = first )
+        {
+            set_node( node - 1 );
+            cur = last;
+        }
+        --cur;
+        return *this;
+    }
+    // 后置--
+    self operator--(int)
+    {
+        self tmp = cur;
+        --*this;
+        return tmp;
+    }
+    // 实现随机存取,迭代器可以直接跳跃n个距离
+    self& operator+=( difference_type n )
+    {
+        difference_type offset = n + ( cur - first );
+        if( offset >= 0 && offset < difference_type( buffer_size() ))
+            // 在同一个缓冲区
+            cur += n;
+        else
+        {
+            // 不在同一个缓冲区
+            difference_type node_offset =
+                    offset > 0 ? offset / difference_type( buffer_size() ) : -difference_type( ( ( -offset - 1 ) / buffer_size() ) ) - 1;
+            // 切换至正确的缓冲区
+            set_node( node + node_offset );
+            // 切换至正确的元素
+            cur = first + ( offset - node_offset * ( difference_type( buffer_size() ) ) );
+        }
+    }
+    self operator+( difference_type n )const
+    {
+        self tmp = this;
+        return tmp += n;
+    }
+    self& operator-=( difference_type n )
+    {
+        return *this += -n;
+    }
+    self operator-( difference_type n ) const
+    {
+        self tmp = *this;
+        return tmp -= n;
+    }
+
+    reference operator[]( difference_type n ) const
+    {
+        return *( *this + n );
+    }
+
+    bool operator==( const self& x ) const { return cur == x.cur; }
+    bool operator!=( const self& x ) const { return cur != x.cur; }
+    bool operator< ( const self& x ) const { return ( node == x.node ) ? ( cur < x.cur ) : ( node < x.node ) ; }
+};
+
+
+// BufSiz 指出缓冲区的大小
+// deque 可以理解为维护一个数组的数组
+// deque需要两个自带迭代器,指出首末元素
+template <class T, class Alloc = alloc, size_t BufSiz = 0>
+class deque
+{
+public:
+    // 内嵌型定义
+    typedef T                    value_type;
+    typedef value_type*          pointer;
+    typedef __deque_iterator<T, T&, T*, BufSiz> iterator;
+    typedef value_type&          reference;
+    typedef const value_type&    const_reference;
+    typedef size_t               size_type;
+    typedef ptrdiff_t            difference_type;
+
+protected:
+    // 内部定义
+    // 元素的指针的指针
+    // 即指向map的空间
+    typedef pointer* map_pointer;
+
+protected:
+    // 成员
+    map_pointer map;        // 指向map,map是一片连续的空间,每个元素是一个指针,指向一块缓冲区
+    size_type map_size;     // map内有多少指针,即deque有多少个二级数组
+    iterator start;         // 表现第一个
+    iterator finish;        // 表现最后一个节点
+
+protected:
+    // 专属空间配置器,每次配置一个元素大小
+    typedef simple_alloc<value_type, Alloc> data_allocator;
+    // 专属空间配置器,每次配置一个指针大小
+    typedef simple_alloc<pointer, Alloc> map_allocator;
+
+public:
+    // 构造
+    deque( int n, const value_type & value )
+    : start(), finish(),map(0), map_size(0)
+    {
+        fill_initialize( n, value );
+    }
+    void fill_initialize( size_type n, const value_type& value )
+    {
+        creat_map_and_nodes(n);
+        map_pointer cur;
+        for( cur = start.node; cur < finish.node; ++cur )
+            std::uninitialized_fill( *cur, *cur + buffer_size(), value );
+    }
+
+public:
+    // 基础数据行为
+    iterator begin() { return start; }
+    iterator end() { return finish; }
+
+    reference operator[]( size_type n )
+    {
+        return start[difference_type(n)];
+    }
+
+    reference front() { return *start; }
+    reference back()
+    {
+        iterator tmp = finish;
+        --tmp;
+        return *tmp;
+    }
+
+    size_type size() const { return finish - start; }
+    size_type max_size() const { return size_type(-1); }
+    bool empty() const { return finish == start; }
+
+};
 
 
 #endif //SEQUENCE_CONTAINERS_SEQUENCE_CONTAINERS_H
